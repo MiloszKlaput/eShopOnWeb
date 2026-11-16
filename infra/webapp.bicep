@@ -1,6 +1,6 @@
 param webAppName string
 param location string = resourceGroup().location
-param sku string = 'B1' // Użycie B1 zamiast S1 omija ograniczenia pojemności
+param sku string = 'F1' // Użycie B1 zamiast S1 omija ograniczenia pojemności
 
 var appServicePlanName = toLower('AppServicePlan-${webAppName}')
 
