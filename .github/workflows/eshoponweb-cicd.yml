@@ -9,7 +9,7 @@ env:
   LOCATION: swedencentral
   TEMPLATE-FILE: infra/webapp.bicep
   SUBSCRIPTION-ID: 0e0fa15b-46fa-49c3-bc19-3174f9b0a4f9
-  WEBAPP-NAME: eshoponweb-webapp-NAME
+  WEBAPP-NAME: devops-webapp-swedencentral-84920
 
 jobs:
   #Build, test and publish .net web project in repository
