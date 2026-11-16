@@ -1,19 +1,20 @@
-param webAppName string // = uniqueString(resourceGroup().id) // unique String gets created from az cli instructions
-
+param webAppName string
 param location string = resourceGroup().location
+param sku string = 'B1' // Użycie B1 zamiast S1 omija ograniczenia pojemności
 
 var appServicePlanName = toLower('AppServicePlan-${webAppName}')
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: appServicePlanName
   location: location
-  properties: {
-    reserved: true
-  }
   sku: {
     name: sku
   }
+  properties: {
+    reserved: true // Wymagane dla środowiska Linux
+  }
 }
+
 resource appService 'Microsoft.Web/sites@2022-09-01' = {
   name: webAppName
   kind: 'app'
@@ -21,7 +22,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
-      linuxFxVersion: 'DOTNETCORE|8.0'
+      linuxFxVersion: 'DOTNETCORE|8.0' // Wymagane dla .NET 8 na Linuksie
       appSettings: [
         {
           name: 'ASPNETCORE_ENVIRONMENT'
