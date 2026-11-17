@@ -1,6 +1,6 @@
 param webAppName string
 param location string = resourceGroup().location
-param sku string = 'F1' // Użycie B1 zamiast S1 omija ograniczenia pojemności
+param sku string = 'F1'
 
 var appServicePlanName = toLower('AppServicePlan-${webAppName}')
 
@@ -11,7 +11,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
     name: sku
   }
   properties: {
-    reserved: true // Wymagane dla środowiska Linux
+    reserved: true
   }
 }
 
@@ -22,7 +22,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     siteConfig: {
-      linuxFxVersion: 'DOTNETCORE|8.0' // Wymagane dla .NET 8 na Linuksie
+      linuxFxVersion: 'DOTNETCORE|8.0'
       appSettings: [
         {
           name: 'ASPNETCORE_ENVIRONMENT'
